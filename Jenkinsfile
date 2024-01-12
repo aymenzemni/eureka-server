@@ -10,6 +10,15 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
+        stage("SonarQube Analysis"){
+            steps {
+	           script {
+		        withSonarQubeEnv(credentialsId: 'jenkins-token') { 
+                        sh "mvn sonar:sonar"
+		        }
+	           }	
+           }
+       }
     }
 }
 
